@@ -24,7 +24,6 @@ public class CustomViewLayerStyle: CustomViewLayer {
 // MARK: Style
 public extension CustomViewLayerStyle {
     private func setViewStyle(vStyle:ViewStyle){
-        println("set style")
         
         if let _borderColor = borderColor?.CGColor ?? vStyle.borderColor?.CGColor {
             layer.borderColor = _borderColor

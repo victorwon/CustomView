@@ -10,7 +10,7 @@ import UIKit
 
 public var ViewStyleInstance: ViewStyles { get { return ViewStyles.sharedInstance } }
 
-@objc public class ViewStyle{
+public class ViewStyle{
     public var borderColor:UIColor?
     public var borderWidth:CGFloat?
     public var cornerRadius:CGFloat?
@@ -21,37 +21,37 @@ public var ViewStyleInstance: ViewStyles { get { return ViewStyles.sharedInstanc
     
     public init(){}
     
-    public func set(#borderColor:UIColor) -> ViewStyle{
+    public func set(borderColor borderColor:UIColor) -> ViewStyle{
         self.borderColor = borderColor
         return self
     }
     
-    public func set(#borderWidth:CGFloat) -> ViewStyle{
+    public func set(borderWidth borderWidth:CGFloat) -> ViewStyle{
         self.borderWidth = borderWidth
         return self
     }
     
-    public func set(#cornorRadius:CGFloat) -> ViewStyle{
+    public func set(cornorRadius cornorRadius:CGFloat) -> ViewStyle{
         self.cornerRadius = cornorRadius
         return self
     }
     
-    public func set(#shadowColor:UIColor) -> ViewStyle{
+    public func set(shadowColor shadowColor:UIColor) -> ViewStyle{
         self.shadowColor = shadowColor
         return self
     }
     
-    public func set(#shadowRadius:CGFloat) -> ViewStyle{
+    public func set(shadowRadius shadowRadius:CGFloat) -> ViewStyle{
         self.shadowRadius = shadowRadius
         return self
     }
     
-    public func set(#shadowOpacity:Float) -> ViewStyle{
+    public func set(shadowOpacity shadowOpacity:Float) -> ViewStyle{
         self.shadowOpacity = shadowOpacity
         return self
     }
     
-    public func set(#shadowOffsetY:CGFloat) -> ViewStyle{
+    public func set(shadowOffsetY shadowOffsetY:CGFloat) -> ViewStyle{
         self.shadowOffsetY = shadowOffsetY
         return self
     }

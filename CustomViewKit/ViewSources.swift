@@ -8,11 +8,11 @@
 
 import UIKit
 
-@objc public protocol ViewSource:class{
+public protocol ViewSource:class {
     func action(cv:CustomViewLight)
 }
 
-@objc public class ViewSources: NSObject {
+public class ViewSources: NSObject {
     
     public class var sharedInstance: ViewSources {
         dispatch_once(&Inner.token) {
@@ -34,12 +34,12 @@ import UIKit
 
 public var ViewSourcesInstance: ViewSources { get { return ViewSources.sharedInstance } }
 
-@objc public class DummyViewSource:ViewSource{
-    public func action(cv:CustomViewLight){
+public class DummyViewSource:ViewSource {
+    @objc public func action(cv:CustomViewLight) {
     }
 }
 
-@objc public class YumeViewSource<T>:DummyViewSource{
+public class YumeViewSource<T>:DummyViewSource{
     public typealias SettingClosure = ((T) -> ())
     
     private var _settings: SettingClosure

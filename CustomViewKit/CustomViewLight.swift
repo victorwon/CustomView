@@ -19,7 +19,7 @@ public class CustomViewLight: UIView {
     }
     
     required public init(coder : NSCoder) {
-        super.init(coder:coder)
+        super.init(coder:coder)!
         setup()
     }
     
@@ -57,10 +57,10 @@ extension CustomViewLight: CustomViewBundle {
             return
         }
         
-        var nib:UINib = UINib(nibName: className(), bundle: bundle)
+        let nib:UINib = UINib(nibName: className(), bundle: bundle)
         var views = nib.instantiateWithOwner(self, options: nil)
         
-        if count(views) >= 1 {
+        if views.count >= 1 {
             if let view = views[0] as? UIView {
                 matchTwoViewsUsingAutolayout(view)
             }
@@ -68,14 +68,14 @@ extension CustomViewLight: CustomViewBundle {
     }
     
     private func insertBlankView(){
-        var view = UIView(frame: CGRectMake(0, 0, 0, 0))
+        let view = UIView(frame: CGRectMake(0, 0, 0, 0))
         matchTwoViewsUsingAutolayout(view)
     }
     
     private func matchTwoViewsUsingAutolayout(view:UIView) {
         self.view = view
         view.backgroundColor = UIColor.clearColor()
-        view.setTranslatesAutoresizingMaskIntoConstraints(false)
+        view.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(view)
         
         self <- view.top == self.top
