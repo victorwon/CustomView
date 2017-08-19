@@ -8,14 +8,14 @@
 
 import UIKit
 
-public class CustomViewSource: CustomViewLight {
+open class CustomViewSource: CustomViewLight {
     
 }
 
 public extension CustomViewSource{
     @IBInspectable public var viewSource:String{
         set{
-            if let sources = ViewSourcesInstance.valueForKeyPath(newValue) as? DummyViewSource {
+            if let sources = ViewSourcesInstance.value(forKeyPath: newValue) as? DummyViewSource {
                 sources.action(self)
             }
         }

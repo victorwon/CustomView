@@ -9,28 +9,28 @@
 import UIKit
 
 @IBDesignable
-public class CustomViewLayer: CustomViewSource {
+open class CustomViewLayer: CustomViewSource {
     
-    @IBInspectable public var borderColor: UIColor? {
+    @IBInspectable open var borderColor: UIColor? {
         didSet {
             if let color = borderColor {
-                layer.borderColor = color.CGColor
+                layer.borderColor = color.cgColor
             }
         }
     }
-    @IBInspectable public var borderWidth: CGFloat = CGFloat.infinity { didSet { layer.borderWidth = borderWidth }}
+    @IBInspectable open var borderWidth: CGFloat = CGFloat.infinity { didSet { layer.borderWidth = borderWidth }}
     
-    @IBInspectable public var cornerRadius: CGFloat = CGFloat.infinity { didSet { layer.cornerRadius = cornerRadius }}
+    @IBInspectable open var cornerRadius: CGFloat = CGFloat.infinity { didSet { layer.cornerRadius = cornerRadius }}
     
-    @IBInspectable public var shadowColor: UIColor? {
+    @IBInspectable open var shadowColor: UIColor? {
         didSet {
             if let color = shadowColor{
-                layer.shadowColor = color.CGColor
+                layer.shadowColor = color.cgColor
             }
         }
     }
-    @IBInspectable public var shadowRadius: CGFloat = CGFloat.infinity { didSet { layer.shadowRadius = shadowRadius }}
-    @IBInspectable public var shadowOpacity: Float = Float.infinity { didSet { layer.shadowOpacity = shadowOpacity }}
-    @IBInspectable public var shadowOffsetY: CGFloat = CGFloat.infinity { didSet { layer.shadowOffset.height = shadowOffsetY }}
+    @IBInspectable open var shadowRadius: CGFloat = CGFloat.infinity { didSet { layer.shadowRadius = shadowRadius }}
+    @IBInspectable open var shadowOpacity: Float = Float.infinity { didSet { layer.shadowOpacity = shadowOpacity }}
+    @IBInspectable open var shadowOffsetY: CGFloat = CGFloat.infinity { didSet { layer.shadowOffset.height = shadowOffsetY }}
     
 }

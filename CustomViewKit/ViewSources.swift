@@ -9,24 +9,26 @@
 import UIKit
 
 public protocol ViewSource:class {
-    func action(cv:CustomViewLight)
+    func action(_ cv:CustomViewLight)
 }
 
-public class ViewSources: NSObject {
+open class ViewSources: NSObject {
     
-    public class var sharedInstance: ViewSources {
-        dispatch_once(&Inner.token) {
+    private static var __once: () = {
             Inner.instance = ViewSources()
-        }
+        }()
+    
+    open class var sharedInstance: ViewSources {
+        _ = ViewSources.__once
         return Inner.instance!
     }
     
     struct Inner {
         static var instance: ViewSources?
-        static var token: dispatch_once_t = 0
+        static var token: Int = 0
     }
     
-    override public func valueForUndefinedKey(key: String) -> AnyObject? {
+    override open func value(forUndefinedKey key: String) -> Any? {
         return nil
     }
     
@@ -34,20 +36,20 @@ public class ViewSources: NSObject {
 
 public var ViewSourcesInstance: ViewSources { get { return ViewSources.sharedInstance } }
 
-public class DummyViewSource:ViewSource {
-    @objc public func action(cv:CustomViewLight) {
+open class DummyViewSource:ViewSource {
+    @objc open func action(_ cv:CustomViewLight) {
     }
 }
 
-public class YumeViewSource<T>:DummyViewSource{
+open class YumeViewSource<T>:DummyViewSource{
     public typealias SettingClosure = ((T) -> ())
     
-    private var _settings: SettingClosure
-    public init(settings:SettingClosure){
+    fileprivate var _settings: SettingClosure
+    public init(settings:@escaping SettingClosure){
         _settings = settings
     }
     
-    public override func action(cv:CustomViewLight){
+    open override func action(_ cv:CustomViewLight){
         if let _view = cv as? T {
             _settings(_view)
             

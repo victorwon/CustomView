@@ -10,87 +10,89 @@ import UIKit
 
 public var ViewStyleInstance: ViewStyles { get { return ViewStyles.sharedInstance } }
 
-public class ViewStyle{
-    public var borderColor:UIColor?
-    public var borderWidth:CGFloat?
-    public var cornerRadius:CGFloat?
-    public var shadowColor:UIColor?
-    public var shadowRadius:CGFloat?
-    public var shadowOpacity:Float?
-    public var shadowOffsetY:CGFloat?
+open class ViewStyle{
+    open var borderColor:UIColor?
+    open var borderWidth:CGFloat?
+    open var cornerRadius:CGFloat?
+    open var shadowColor:UIColor?
+    open var shadowRadius:CGFloat?
+    open var shadowOpacity:Float?
+    open var shadowOffsetY:CGFloat?
     
     public init(){}
     
-    public func set(borderColor borderColor:UIColor) -> ViewStyle{
+    open func set(borderColor:UIColor) -> ViewStyle{
         self.borderColor = borderColor
         return self
     }
     
-    public func set(borderWidth borderWidth:CGFloat) -> ViewStyle{
+    open func set(borderWidth:CGFloat) -> ViewStyle{
         self.borderWidth = borderWidth
         return self
     }
     
-    public func set(cornorRadius cornorRadius:CGFloat) -> ViewStyle{
+    open func set(cornorRadius:CGFloat) -> ViewStyle{
         self.cornerRadius = cornorRadius
         return self
     }
     
-    public func set(shadowColor shadowColor:UIColor) -> ViewStyle{
+    open func set(shadowColor:UIColor) -> ViewStyle{
         self.shadowColor = shadowColor
         return self
     }
     
-    public func set(shadowRadius shadowRadius:CGFloat) -> ViewStyle{
+    open func set(shadowRadius:CGFloat) -> ViewStyle{
         self.shadowRadius = shadowRadius
         return self
     }
     
-    public func set(shadowOpacity shadowOpacity:Float) -> ViewStyle{
+    open func set(shadowOpacity:Float) -> ViewStyle{
         self.shadowOpacity = shadowOpacity
         return self
     }
     
-    public func set(shadowOffsetY shadowOffsetY:CGFloat) -> ViewStyle{
+    open func set(shadowOffsetY:CGFloat) -> ViewStyle{
         self.shadowOffsetY = shadowOffsetY
         return self
     }
     
 }
 
-public class ViewStyles: NSObject {
+open class ViewStyles: NSObject {
     
-    public class var sharedInstance: ViewStyles {
-        dispatch_once(&Inner.token) {
+    private static var __once: () = {
             Inner.instance = ViewStyles()
-        }
+        }()
+    
+    open class var sharedInstance: ViewStyles {
+        _ = ViewStyles.__once
         return Inner.instance!
     }
     
     struct Inner {
         static var instance: ViewStyles?
-        static var token: dispatch_once_t = 0
+        static var token: Int = 0
     }
     
-    public func none() -> ViewStyle{
-        return ViewStyle().set(borderColor: UIColor.clearColor())
+    open func none() -> ViewStyle{
+        return ViewStyle().set(borderColor: UIColor.clear)
                           .set(borderWidth:0)
                           .set(cornorRadius:0)
-                          .set(shadowColor:UIColor.clearColor())
+                          .set(shadowColor:UIColor.clear)
                           .set(shadowRadius:0)
                           .set(shadowOpacity:0)
                           .set(shadowOffsetY:0)
     }
     
-    public func fb() -> ViewStyle{
-        return ViewStyle().set(borderWidth:10).set(borderColor:UIColor.blueColor()).set(cornorRadius:20)
+    open func fb() -> ViewStyle{
+        return ViewStyle().set(borderWidth:10).set(borderColor:UIColor.blue).set(cornorRadius:20)
     }
     
-    public func yume() -> ViewStyle{
-        return ViewStyle().set(borderWidth:3).set(borderColor:UIColor.purpleColor()).set(cornorRadius:30)
+    open func yume() -> ViewStyle{
+        return ViewStyle().set(borderWidth:3).set(borderColor:UIColor.purple).set(cornorRadius:30)
     }
     
-    override public func valueForUndefinedKey(key: String) -> AnyObject? {
+    override open func value(forUndefinedKey key: String) -> Any? {
         return none()
     }
     

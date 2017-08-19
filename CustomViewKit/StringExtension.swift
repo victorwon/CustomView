@@ -9,7 +9,7 @@
 import Foundation
 
 extension String {
-    static public func className(aClass: AnyClass) -> String {
-        return NSStringFromClass(aClass).componentsSeparatedByString(".").last!
+    static public func className(_ aClass: AnyClass) -> String {
+        return NSStringFromClass(aClass).components(separatedBy: ".").last!
     }
 }

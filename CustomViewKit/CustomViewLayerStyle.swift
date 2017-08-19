@@ -9,11 +9,11 @@
 import UIKit
 
 @IBDesignable
-public class CustomViewLayerStyle: CustomViewLayer {
+open class CustomViewLayerStyle: CustomViewLayer {
     
-    @IBInspectable public var style:String = "none" {
+    @IBInspectable open var style:String = "none" {
         didSet{
-            if let _style = ViewStyleInstance.valueForKey(style) as? ViewStyle {
+            if let _style = ViewStyleInstance.value(forKey: style) as? ViewStyle {
                 _viewStyle = _style
             }
         }
@@ -23,9 +23,9 @@ public class CustomViewLayerStyle: CustomViewLayer {
 
 // MARK: Style
 public extension CustomViewLayerStyle {
-    private func setViewStyle(vStyle:ViewStyle){
+    fileprivate func setViewStyle(_ vStyle:ViewStyle){
         
-        if let _borderColor = borderColor?.CGColor ?? vStyle.borderColor?.CGColor {
+        if let _borderColor = borderColor?.cgColor ?? vStyle.borderColor?.cgColor {
             layer.borderColor = _borderColor
         }
         
@@ -41,7 +41,7 @@ public extension CustomViewLayerStyle {
             layer.shadowRadius = _shadowRadius
         }
         
-        if let _shadowColor = shadowColor?.CGColor ?? vStyle.shadowColor?.CGColor{
+        if let _shadowColor = shadowColor?.cgColor ?? vStyle.shadowColor?.cgColor{
             layer.shadowColor = _shadowColor
         }
         
@@ -54,7 +54,7 @@ public extension CustomViewLayerStyle {
         }
     }
     
-    private var _viewStyle:ViewStyle{
+    fileprivate var _viewStyle:ViewStyle{
         set{ setViewStyle(newValue) }
         get{ return ViewStyleInstance.none() }
     }

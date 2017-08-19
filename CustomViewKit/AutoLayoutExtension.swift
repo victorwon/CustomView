@@ -25,133 +25,150 @@ public struct LayoutAttribute {
 
 public extension UIView {
     
-    func addConstraints (constraints: NSLayoutConstraint...){
+    func addConstraints (_ constraints: NSLayoutConstraint...){
         for constraint in constraints {
             self.addConstraint(constraint)
         }
     }
     
     public var width : LayoutAttribute {
-        get { return LayoutAttribute(view: self, attribute : .Width); }
+        get { return LayoutAttribute(view: self, attribute : .width); }
     }
     
     public var height : LayoutAttribute {
-        get { return LayoutAttribute(view: self, attribute : .Height); }
+        get { return LayoutAttribute(view: self, attribute : .height); }
     }
     
     public var leading : LayoutAttribute {
-        get { return LayoutAttribute(view: self, attribute : .Leading); }
+        get { return LayoutAttribute(view: self, attribute : .leading); }
     }
     
     public var trailing : LayoutAttribute {
-        get { return LayoutAttribute(view: self, attribute : .Trailing); }
+        get { return LayoutAttribute(view: self, attribute : .trailing); }
     }
     
     public var top : LayoutAttribute {
-        get { return LayoutAttribute(view: self, attribute : .Top); }
+        get { return LayoutAttribute(view: self, attribute : .top); }
     }
     
     public var bottom : LayoutAttribute {
-        get { return LayoutAttribute(view: self, attribute : .Bottom); }
+        get { return LayoutAttribute(view: self, attribute : .bottom); }
     }
     
     public var centerX : LayoutAttribute {
-        get { return LayoutAttribute(view: self, attribute : .CenterX); }
+        get { return LayoutAttribute(view: self, attribute : .centerX); }
     }
     
     public var centerY : LayoutAttribute {
-        get { return LayoutAttribute(view: self, attribute : .CenterY); }
+        get { return LayoutAttribute(view: self, attribute : .centerY); }
     }
     
 }
 
 public func == (left: LayoutAttribute, right: LayoutAttribute) -> NSLayoutConstraint {
-    var layoutConstraint = NSLayoutConstraint(item:left.view!,
-        attribute: left.attribute, relatedBy: NSLayoutRelation.Equal, toItem: right.view,
+    let layoutConstraint = NSLayoutConstraint(item:left.view!,
+        attribute: left.attribute, relatedBy: NSLayoutRelation.equal, toItem: right.view,
         attribute: right.attribute, multiplier: right.multiplier, constant: right.constant)
     
     return layoutConstraint
 }
 
 public func >= (left: LayoutAttribute, right: LayoutAttribute) -> NSLayoutConstraint {
-    var layoutConstraint = NSLayoutConstraint(item: left.view!,
-        attribute: left.attribute, relatedBy: NSLayoutRelation.GreaterThanOrEqual, toItem: right.view, attribute: right.attribute,
+    let layoutConstraint = NSLayoutConstraint(item: left.view!,
+        attribute: left.attribute, relatedBy: NSLayoutRelation.greaterThanOrEqual, toItem: right.view, attribute: right.attribute,
         multiplier: right.multiplier, constant: right.constant);
     return layoutConstraint
 }
 
 public func <= (left: LayoutAttribute, right: LayoutAttribute) -> NSLayoutConstraint {
-    var layoutConstraint = NSLayoutConstraint(item: left.view!,
-        attribute: left.attribute, relatedBy: NSLayoutRelation.LessThanOrEqual, toItem: right.view, attribute: right.attribute,
+    let layoutConstraint = NSLayoutConstraint(item: left.view!,
+        attribute: left.attribute, relatedBy: NSLayoutRelation.lessThanOrEqual, toItem: right.view, attribute: right.attribute,
         multiplier: right.multiplier, constant: right.constant);
     return layoutConstraint
 }
 
 public func == (left: LayoutAttribute, right: CGFloat) -> NSLayoutConstraint {
-    var layoutConstraint = NSLayoutConstraint(item:left.view!,
-        attribute: left.attribute, relatedBy: NSLayoutRelation.Equal, toItem: nil,
-        attribute: .NotAnAttribute, multiplier: 1.0, constant: right)
+    let layoutConstraint = NSLayoutConstraint(item:left.view!,
+        attribute: left.attribute, relatedBy: NSLayoutRelation.equal, toItem: nil,
+        attribute: .notAnAttribute, multiplier: 1.0, constant: right)
     
     return layoutConstraint
 }
 
 public func <= (left: LayoutAttribute, right: CGFloat) -> NSLayoutConstraint {
-    var layoutConstraint = NSLayoutConstraint(item:left.view!,
-        attribute: left.attribute, relatedBy: NSLayoutRelation.LessThanOrEqual, toItem: nil,
-        attribute: .NotAnAttribute, multiplier: 1.0, constant: right)
+    let layoutConstraint = NSLayoutConstraint(item:left.view!,
+        attribute: left.attribute, relatedBy: NSLayoutRelation.lessThanOrEqual, toItem: nil,
+        attribute: .notAnAttribute, multiplier: 1.0, constant: right)
     
     return layoutConstraint
 }
 
 public func >= (left: LayoutAttribute, right: CGFloat) -> NSLayoutConstraint {
-    var layoutConstraint = NSLayoutConstraint(item:left.view!,
-        attribute: left.attribute, relatedBy: NSLayoutRelation.GreaterThanOrEqual, toItem: nil,
-        attribute: .NotAnAttribute, multiplier: 1.0, constant: right)
+    let layoutConstraint = NSLayoutConstraint(item:left.view!,
+        attribute: left.attribute, relatedBy: NSLayoutRelation.greaterThanOrEqual, toItem: nil,
+        attribute: .notAnAttribute, multiplier: 1.0, constant: right)
     
     return layoutConstraint
 }
 
 // ------------------------------------------
 
-infix operator *+ {
-    associativity left
-    precedence 150
+//infix operator *+ {
+//    associativity left
+//    precedence 150
+//}
+
+precedencegroup LayoutAttrPrecedence {
+    associativity: left
+    higherThan: LogicalConjunctionPrecedence
 }
+infix operator *+ : LayoutAttrPrecedence
 
 public func *+(left: LayoutAttribute, right: (multiplier:CGFloat, contant:CGFloat)) -> LayoutAttribute {
-    var layoutAttribute = LayoutAttribute(view:left.view!, attribute: left.attribute, constant: right.contant, multiplier:right.multiplier)
+    let layoutAttribute = LayoutAttribute(view:left.view!, attribute: left.attribute, constant: right.contant, multiplier:right.multiplier)
     return layoutAttribute
 }
 
 public func *(left: LayoutAttribute, right: CGFloat) -> LayoutAttribute {
-    var layoutAttribute = LayoutAttribute(view:left.view!, attribute: left.attribute, constant: 0, multiplier:right)
+    let layoutAttribute = LayoutAttribute(view:left.view!, attribute: left.attribute, constant: 0, multiplier:right)
     return layoutAttribute
 }
 
 public func +(left: LayoutAttribute, right: CGFloat) -> LayoutAttribute {
-    var layoutAttribute = LayoutAttribute(view:left.view!, attribute: left.attribute, constant: right, multiplier:left.multiplier)
+    let layoutAttribute = LayoutAttribute(view:left.view!, attribute: left.attribute, constant: right, multiplier:left.multiplier)
     return layoutAttribute
 }
 
 public func -(left: LayoutAttribute, right: CGFloat) -> LayoutAttribute {
-    var layoutAttribute = LayoutAttribute(view:left.view!, attribute: left.attribute, constant: -right, multiplier:left.multiplier)
+    let layoutAttribute = LayoutAttribute(view:left.view!, attribute: left.attribute, constant: -right, multiplier:left.multiplier)
     return layoutAttribute
 }
 
-infix operator <~ {
-    associativity left
-    precedence 125
+//infix operator <~ {
+//    associativity left
+//    precedence 125
+//}
+precedencegroup LayoutConsPrecedence {
+    associativity: left
+    higherThan: LogicalConjunctionPrecedence
 }
+infix operator <~ : LayoutConsPrecedence
+
 
 public func <~ (left: NSLayoutConstraint, right: UILayoutPriority) -> NSLayoutConstraint {
     left.priority = right
     return left
 }
 
-infix operator <- {
-    associativity right
-    precedence 90
+//infix operator <- {
+//    associativity right
+//    precedence 90
+//}
+precedencegroup UIViewPrecedence {
+    associativity: right
+    lowerThan: LogicalConjunctionPrecedence
 }
+infix operator <- : UIViewPrecedence
 
 public func <- (left: UIView, right: NSLayoutConstraint) -> UIView {
     left.addConstraint(right)

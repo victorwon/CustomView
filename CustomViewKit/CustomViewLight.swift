@@ -9,9 +9,9 @@
 import UIKit
 
 @IBDesignable
-public class CustomViewLight: UIView {
+open class CustomViewLight: UIView {
     
-    public var view:UIView?
+    open var view:UIView?
     
     override public init(frame: CGRect) {
         super.init(frame: frame)
@@ -23,7 +23,7 @@ public class CustomViewLight: UIView {
         setup()
     }
     
-    public func setup(){
+    open func setup(){
         instantiateWithXib()
     }
     
@@ -34,31 +34,31 @@ public class CustomViewLight: UIView {
 }
 
 protocol CustomViewBundle {
-    func frameworkBundle() -> NSBundle?
+    func frameworkBundle() -> Bundle?
     func className() -> String
 }
 
 // MARK: Bundle
 extension CustomViewLight: CustomViewBundle {
     
-    public func frameworkBundle() -> NSBundle?{
-        return NSBundle(forClass: self.classForCoder)
+    public func frameworkBundle() -> Bundle?{
+        return Bundle(for: self.classForCoder)
     }
     
     public func className() -> String{
         return String.className(self.classForCoder)
     }
     
-    private func instantiateWithXib(){
-        let bundle:NSBundle? = frameworkBundle()
-        let nibUrl = bundle?.URLForResource(className(), withExtension: "nib")
+    fileprivate func instantiateWithXib(){
+        let bundle:Bundle? = frameworkBundle()
+        let nibUrl = bundle?.url(forResource: className(), withExtension: "nib")
         if bundle == nil || nibUrl == nil {
             insertBlankView()
             return
         }
         
         let nib:UINib = UINib(nibName: className(), bundle: bundle)
-        var views = nib.instantiateWithOwner(self, options: nil)
+        var views = nib.instantiate(withOwner: self, options: nil)
         
         if views.count >= 1 {
             if let view = views[0] as? UIView {
@@ -67,14 +67,14 @@ extension CustomViewLight: CustomViewBundle {
         }
     }
     
-    private func insertBlankView(){
-        let view = UIView(frame: CGRectMake(0, 0, 0, 0))
+    fileprivate func insertBlankView(){
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
         matchTwoViewsUsingAutolayout(view)
     }
     
-    private func matchTwoViewsUsingAutolayout(view:UIView) {
+    fileprivate func matchTwoViewsUsingAutolayout(_ view:UIView) {
         self.view = view
-        view.backgroundColor = UIColor.clearColor()
+        view.backgroundColor = UIColor.clear
         view.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(view)
         
